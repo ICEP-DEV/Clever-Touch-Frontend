@@ -7,7 +7,7 @@ import Login from './comonents/Login';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  return (
+  return ( 
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
