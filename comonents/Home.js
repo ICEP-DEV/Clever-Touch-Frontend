@@ -17,7 +17,6 @@ function Home() {
     setCurrentDate(date + '/' + month + '/' + Year + ' ');
     setCurrentTime(Hours + ':' + mins);
     
-
   });
 
   
@@ -43,11 +42,12 @@ function Home() {
         </View>
         <Text style={styles.logo}>
           {' '}
-          <FontAwesome5 name="pen" size={30} /> {'\n'} SmartNote
+          <FontAwesome5 name="pen" size={50} /> {'\n'} SmartNote
         </Text>
 
         <View>
           <Text style={styles.clock}>{currentTime} </Text>
+     
         </View>
         <View>
           <Text style={styles.date}> {currentDate} </Text>
@@ -66,21 +66,21 @@ const styles = StyleSheet.create({
     color: '#011D57',
     marginTop: 250,
     textAlign: 'center',
-    fontSize: 30,
+    fontSize: 50,
     fontWeight: 'bold',
     textTransform: 'uppercase',
   },
   clock: {
     color: '#007AFF',
     marginTop: 200,
-    fontSize: 30,
+    fontSize: 50,
     fontWeight: 'bold',
     textTransform: 'uppercase',
     textAlign: "right" ,
   },
   date: {
     color: '#007AFF',
-    fontSize: 30,
+    fontSize: 50,
     fontWeight: 'bold',
     textTransform: 'uppercase',
      textAlign: "right" ,

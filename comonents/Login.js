@@ -48,55 +48,68 @@ const LoginPage = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
+   marginLeft:'auto',
+   marginRight:'auto',
     backgroundColor: 'white',
+    width:800,
+    height:800,
+    boxShadow: "10px 10px 17px -12px rgba(0,0,0,0.75)",
+    marginTop:30,
+    fontFamily: 'Jockey One',
   },
    login: {
-    fontSize: 35,
+    fontSize: 100,
     fontWeight: 'bold',
     color: '#007AFF',
     marginBottom: 50, 
-    padding: 30
+    padding: 30,
+    textAlign:'center',
   },
    studentNumber: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#011D57',
     marginBottom: 20,
+    marginLeft:200,
+   
   },
    password: {
     fontSize:16,
     fontWeight: 'bold',
     color: '#011D57',
     marginBottom: 20,
+    marginLeft:200,
+   
   },
   input: {
-    width: '80%',
+    width: '50%',
     fontWeight: 'bold',
     height: 40,
     backgroundColor: '#D9D9D9',
     marginBottom: 25,
     paddingHorizontal: 10,
     borderRadius: 5,
-    textAlign: 'center',
+    marginLeft:200,
+   
   },
   button: {
     backgroundColor: '#007AFF',
     color:'white',
-    width: '300%',
-    height: 45,
+    width: '25%',
+    height: 55,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 24,
     marginLeft:'auto',
     marginRight:'auto',
+    marginTop:50,
     
   },
 buttonText: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 'bold',
+    textAlign:'center',
   },
 });
 
