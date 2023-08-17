@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     textTransform: 'uppercase',
+    paddingRight: 20,
     textAlign: "right" ,
   },
   date: {
