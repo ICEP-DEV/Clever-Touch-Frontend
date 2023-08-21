@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
+import {FontAwesome5,MaterialIcons,AntDesign,Entypo,SimpleLineIcons,Feather,Ionicons} from 'react-native-vector-icons';
 import { useNavigation } from "@react-navigation/native";
 import { useState, useRef } from "react";
 
 const Recorder = () => {
+  const navigation = useNavigation();
   const [permission, setPermission] = useState(false);
   const [stream, setStream] = useState(null);
   const mimeType = "audio/mp3";
@@ -59,28 +61,41 @@ const Recorder = () => {
   };
 
   return (
-    <div>
+    <View> 
+    <View>
+        <View style={styles.header}>
+        <FontAwesome5 name="pen-nib" size={30} color="white" />
+        <MaterialIcons name="text-fields" size={30} color="white" onPress={() => navigation.navigate("TextField")} />
+        <AntDesign name="picture"  size={30} color="white" onPress={() => navigation.navigate("ImagePicker")}/>
+        <Entypo name="link" size={30} color="white" onPress={() => navigation.navigate("hypeLink")}/>
+        <SimpleLineIcons name="microphone" size={30} color="white"/>
+        <Feather name="save" size={30} color="white" onPress={() => navigation.navigate("SaveScreen")}/>
+        <Ionicons name="home-outline" size={30} color="white" onPress={() => navigation.navigate("Home")} />
+        </View>
+  
+    </View>  
+     <div>
       <h2>Audio Recorder</h2>
       <main>
         <div className="audio-controls">
           {!permission ? (
             <button onClick={getMicrophonePermission} type="button">
-              Get Microphone
+              Get Microphone Permission
             </button>
           ) : null}
           {permission && recordingStatus === "inactive" ? (
-            <button onClick={startRecording} type="button">
+            <button style={styles.startRec} onClick={startRecording} type="button">
               Start Recording
             </button>
           ) : null}
           {recordingStatus === "recording" ? (
-            <button onClick={stopRecording} type="button">
+            <button style={styles.stopRec} onClick={stopRecording} type="button">
               Stop Recording
             </button>
           ) : null}
         </div>
         {audio ? (
-          <div className="audio-player">
+          <div style={styles.downRec} className="audio-player">
             <audio src={audio} controls></audio>
             <a download href={audio}>
               Download Recording
@@ -89,7 +104,32 @@ const Recorder = () => {
         ) : null}
       </main>
     </div>
+    </View>
   );
 };
+const styles = StyleSheet.create({
+  header:{
+  backgroundColor:"#007AFF",
+  padding:10,
+  paddingTop:40,
+  flexDirection:'row',
+   justifyContent:'space-between'
+  },
+  startRec: {
+    padding: 10,
+    color: 'black',
+    textAlign: 'center',
+  },
+  stopRec: {
+    padding: 10,
+    color: 'black',
+    textAlign: 'center',
+  },
+  downRec: {
+    padding: 10,
+    color: 'black',
+    textAlign: 'center',
+  },
 
+});
 export default Recorder;
