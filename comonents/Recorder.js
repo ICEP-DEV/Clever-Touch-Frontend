@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
-import {FontAwesome5,MaterialIcons,AntDesign,Entypo,SimpleLineIcons,Feather,Ionicons} from 'react-native-vector-icons';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, SafeAreaView, Button} from 'react-native';
+import {FontAwesome5,MaterialIcons,AntDesign,SimpleLineIcons,Feather,Ionicons} from 'react-native-vector-icons';
 import { useNavigation } from "@react-navigation/native";
 import { useState, useRef } from "react";
 
@@ -67,43 +67,47 @@ const Recorder = () => {
         <FontAwesome5 name="pen-nib" size={30} color="white" />
         <MaterialIcons name="text-fields" size={30} color="white" onPress={() => navigation.navigate("TextField")} />
         <AntDesign name="picture"  size={30} color="white" onPress={() => navigation.navigate("ImagePicker")}/>
-        <Entypo name="link" size={30} color="white" onPress={() => navigation.navigate("hypeLink")}/>
         <SimpleLineIcons name="microphone" size={30} color="white"/>
         <Feather name="save" size={30} color="white" onPress={() => navigation.navigate("SaveScreen")}/>
         <Ionicons name="home-outline" size={30} color="white" onPress={() => navigation.navigate("Home")} />
         </View>
   
     </View>  
-     <div>
-      <h2>Audio Recorder</h2>
-      <main>
-        <div className="audio-controls">
+     <View>
+      <h2 style={styles.title}>Audio Recorder</h2>
           {!permission ? (
-            <button onClick={getMicrophonePermission} type="button">
-              Get Microphone Permission
+            <button style={styles.perm} onClick={getMicrophonePermission} type="button">
+              Get Microphone
             </button>
           ) : null}
+    <View>
           {permission && recordingStatus === "inactive" ? (
             <button style={styles.startRec} onClick={startRecording} type="button">
               Start Recording
             </button>
           ) : null}
+          </View>
+          <View>
           {recordingStatus === "recording" ? (
-            <button style={styles.stopRec} onClick={stopRecording} type="button">
+            <button style={styles.stopRec}  onClick={stopRecording} type="button">
               Stop Recording
             </button>
           ) : null}
-        </div>
+      </View>
+      <View>
         {audio ? (
-          <div style={styles.downRec} className="audio-player">
+           <button  style={styles.saveRec}  className="audio-player">
             <audio src={audio} controls></audio>
+            <div>
             <a download href={audio}>
-              Download Recording
+                <button  style={styles.download}>Download</button>
             </a>
-          </div>
+        </div>
+          </button>
         ) : null}
-      </main>
-    </div>
+        
+      </View>
+    </View>
     </View>
   );
 };
@@ -113,23 +117,46 @@ const styles = StyleSheet.create({
   padding:10,
   paddingTop:40,
   flexDirection:'row',
-   justifyContent:'space-between'
+  justifyContent:'space-between'
+  },
+  title: {
+    padding: 5,
+    textAlign: 'center',
+    alignContent: 'center',
+  },
+  perm: {
+    border: 'none',
+    color: 'blue',
   },
   startRec: {
     padding: 10,
-    color: 'black',
     textAlign: 'center',
+    backgroundColor: '#DDDDDD',
+    alignContent: 'center',
+    border: 'none',
+    color: 'green',
   },
-  stopRec: {
+    stopRec: {
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
     padding: 10,
-    color: 'black',
-    textAlign: 'center',
+    border: 'none',
+    color: 'red',
   },
-  downRec: {
+  saveRec: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignContent: 'center',
+    backgroundColor: '#DDDDDD',
     padding: 10,
-    color: 'black',
-    textAlign: 'center',
+    border: 'none',
   },
-
-});
+  download: {
+    marginTop: 30,
+    padding: 5,
+    textAlign: 'center',
+    alignContent: 'center',
+  },
+  },
+);
 export default Recorder;
