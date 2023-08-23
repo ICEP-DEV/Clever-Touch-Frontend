@@ -10,10 +10,10 @@ function Notes(){
         <View style={styles.header}>
         <FontAwesome5 name="pen-nib" size={30} color="white" />
         <MaterialIcons name="text-fields" size={30} color="white" onPress={() => navigation.navigate("TextField")} />
-        <AntDesign name="picture"  size={30} color="white"/>
-        <Entypo name="link" size={30} color="white"/>
+        <AntDesign name="picture"  size={30} color="white" onPress={() => navigation.navigate("ImagePicker")}/>
+        {/* <Entypo name="link" size={30} color="white" onPress={() => navigation.navigate("hypeLink")} /> */}
         <SimpleLineIcons name="microphone" size={30} color="white" onPress={() => navigation.navigate("Recorder")}/>
-        <Feather name="save" size={30} color="white"/>
+        <Feather name="save" size={30} color="white" onPress={() => navigation.navigate("SaveScreen")}/>
         <Ionicons name="home-outline" size={30} color="white" onPress={() => navigation.navigate("Home")} />
         </View>
   

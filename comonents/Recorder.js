@@ -74,7 +74,7 @@ const Recorder = () => {
   
     </View>  
      <View>
-      <h2 style={styles.title}>Audio Recorder</h2>
+      <h2 style={styles.title}>Voice Recorder</h2>
           {!permission ? (
             <button style={styles.perm} onClick={getMicrophonePermission} type="button">
               Get Microphone
@@ -132,30 +132,36 @@ const styles = StyleSheet.create({
     padding: 10,
     textAlign: 'center',
     backgroundColor: '#DDDDDD',
-    alignContent: 'center',
+    marginLeft:'auto',
+    marginRight:'auto',
     border: 'none',
     color: 'green',
+    width: 300,
   },
     stopRec: {
-    alignItems: 'center',
+    marginLeft:'auto',
+    marginRight:'auto',
     backgroundColor: '#DDDDDD',
     padding: 10,
     border: 'none',
     color: 'red',
+    width: 300,
   },
   saveRec: {
     alignItems: 'center',
-    justifyContent: 'center',
-    alignContent: 'center',
-    backgroundColor: '#DDDDDD',
+    marginLeft:'auto',
+    marginRight:'auto',
+    backgroundColor: '#fff',
     padding: 10,
     border: 'none',
+    width: 300,
   },
   download: {
     marginTop: 30,
     padding: 5,
+    marginLeft:'auto',
+    marginRight:'auto',
     textAlign: 'center',
-    alignContent: 'center',
   },
   },
 );

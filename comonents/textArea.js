@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View,TextInput, StyleSheet } from "react-native";
 import { FontAwesome5, MaterialIcons, AntDesign, Entypo, SimpleLineIcons, Feather, Ionicons } from 'react-native-vector-icons';
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState } from 'draft-js'
@@ -25,6 +25,12 @@ function TextField() {
         <Ionicons name="home-outline" size={30} color="white" onPress={() => navigation.navigate("Home")} />
       </View>
 
+      <TextInput
+        style={styles.noteTitle}
+        placeholder="Enter Notes Title"
+       // value={noteTitle}
+        //onChangeText={setTitle}
+      />
       <div className="textField">
         <Editor
           editorState={editorState}
@@ -49,5 +55,24 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     flexDirection: 'row',
     justifyContent: 'space-between'
+  },
+  textTitle: {
+    padding: 5,
+    marginBottom: 10,
+    textAlign: 'center',
+    alignContent: 'center',
+  },
+  noteTitle: {
+    width: '50%',
+    fontWeight: 'bold',
+    height: 40,
+    color: 'grey',
+    backgroundColor: '#D9D9D9',
+    marginBottom: 25,
+    marginTop: 10,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    marginLeft:20,
+    
   },
 })

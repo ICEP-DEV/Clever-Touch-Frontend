@@ -14,8 +14,9 @@ function Home() {
     var Year = new Date().getFullYear();
     var Hours = new Date().getHours();
     var mins = new Date().getMinutes();
+    var secs = new Date().getSeconds();
     setCurrentDate(date + '/' + month + '/' + Year + ' ');
-    setCurrentTime(Hours + ':' + mins);
+    setCurrentTime(Hours + ':' + mins + ':' + secs);
     
 
   });
@@ -47,7 +48,7 @@ function Home() {
         </Text>
 
         <View>
-          <Text style={styles.clock}>{currentTime} </Text>
+          {/* <Text style={styles.clock}>{currentTime} </Text> */}
         </View>
         <View>
           <Text style={styles.date}> {currentDate} </Text>
@@ -61,6 +62,7 @@ const styles = StyleSheet.create({
   container: {
     // SafeAreaView on Android devices
     paddingTop: Constants.statusBarHeight,
+    height: '100%',
   },
   logo: {
     color: '#011D57',
@@ -76,6 +78,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     textTransform: 'uppercase',
+    paddingRight: 20,
     textAlign: "right" ,
   },
   date: {
@@ -84,6 +87,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textTransform: 'uppercase',
      textAlign: "right" ,
+     marginTop: 350,
   },
 
   home: {
