@@ -7,6 +7,7 @@ import Notes from "./comonents/Notes";
 import SaveScreen from "./comonents/SaveScreen";
 import TextField from "./comonents/textArea";
 import ImagePicker from "./comonents/ImagePicker";
+import Recorder from "./comonents/Recorder";
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,7 @@ const StackNavigator = () => {
          <Stack.Screen name ="SaveScreen" component={SaveScreen}/>
          <Stack.Screen name="TextField" component={TextField}/>
          <Stack.Screen name="ImagePicker" component={ImagePicker}/>
+         <Stack.Screen name="Recoder" component={Recorder}/>
          
       </Stack.Group>
       

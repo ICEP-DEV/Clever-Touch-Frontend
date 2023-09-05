@@ -9,13 +9,14 @@ import {
   Platform,
   PermissionsAndroid,
 } from 'react-native';
-import {FontAwesome5,MaterialIcons,AntDesign,SimpleLineIcons,Feather,Ionicons} from 'react-native-vector-icons';
+
 // import {
 //   launchCamera,
 //   launchImageLibrary
 // } from 'react-native-image-picker';
 import { useNavigation } from "@react-navigation/native";
-
+import NavBar from './navbar';
+import ImageView from "react-native-image-viewing";
 
 const ImagePicker = () => {
   const [filePath, setFilePath] = useState({});
@@ -136,15 +137,7 @@ const ImagePicker = () => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-     
-         <View style={styles.header}>
-        <FontAwesome5 name="pen-nib" size={30} color="white" />
-        <MaterialIcons name="text-fields" size={30} color="white" onPress={() => navigation.navigate("TextField")} />
-        <AntDesign name="picture"  size={30} color="white" onPress={() => navigation.navigate("ImagePicker")}/>
-        <SimpleLineIcons name="microphone" size={30} color="white" onPress={() => navigation.navigate("Recorder")}/>
-        <Feather name="save" size={30} color="white" onPress={() => navigation.navigate("SaveScreen")}/>
-        <Ionicons name="home-outline" size={30} color="white" onPress={() => navigation.navigate("Home")} />
-        </View>
+     <NavBar/>
         <Text style={styles.titleText}>
           Select Image
       </Text>

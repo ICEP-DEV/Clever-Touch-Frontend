@@ -3,7 +3,7 @@ import React from "react";
 import { Text ,View,StyleSheet} from "react-native";
 import {AntDesign,Ionicons,MaterialIcons,Fontisto} from  'react-native-vector-icons';
 import { useNavigation } from "@react-navigation/native";
-
+import NavBar from './navbar';
 function SaveScreen (){
   
     const navigation = useNavigation();
