@@ -25,6 +25,8 @@ const Drawing = () => {
     context.strokeStyle = selectedColor;
     context.lineWidth = brushSize; // Use the selected brush size
     contextRef.current = context;
+    context.fillStyle = 'white';
+    context.fillRect(0, 0, canvas.width, canvas.height);
   }, [selectedColor, brushSize]);
 
   const startDrawing = ({ nativeEvent }) => {
