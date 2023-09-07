@@ -125,18 +125,22 @@ const Recorder = () => {
           ) : null}
         </View>
         <View>
-          <h3 style={styles.recListHeader}>Recordings</h3>
-          <ul>
-            {recordings.map((recording, index) => (
-              <Text key={index}>
-                <button style={styles.downRec} onClick={() => downloadRecording(recording)}>Download Recording {index + 1}</button> <br>
-                </br> <br>
-                </br> <br>
-                </br> 
-              </Text>
-            ))}
-          </ul>
-        </View>
+  <h3 style={styles.recListHeader}>Recordings</h3>
+  <table style={styles.recordingsTable}>
+    <tbody>
+      {recordings.map((recording, index) => (
+        index % 4 === 0 && <tr key={`row-${index}`}>
+          {recordings.slice(index, index + 4).map((rec, subIndex) => (
+            <td key={`cell-${index}-${subIndex}`}>
+              <button style={styles.downRec} onClick={() => downloadRecording(rec)}>{`Download Recording ${index + subIndex + 1}`}</button>
+            </td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</View>
+
       </View>
     </View>
   );
@@ -171,7 +175,9 @@ const styles = StyleSheet.create({
     
     right: 100,
     backgroundColor: '#007AFF',
-    padding: 10,
+    padding: 20,
+    marginLeft: 30,
+    marginBottom: 10,
     borderRadius: 4,
     color: 'white',
     marginVertical: 10,

@@ -24,7 +24,7 @@ function Home() {
   
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.home}>
+     
         <View style={styles.header}> 
         <View>
         <Ionicons name="home-outline" size={30} color="white" />
@@ -37,7 +37,7 @@ function Home() {
           </View>
          <View>
 
-         <AntDesign name="file1" size= {30} color="white" />
+         <AntDesign name="file1" size= {30} color="white" onPress={() => navigation.navigate("Files")}/>
         <Text style={styles.texticon}>File</Text>
          </View>
          
@@ -53,16 +53,13 @@ function Home() {
         <View>
           <Text style={styles.date}> {currentDate} </Text>
         </View>
-      </View>
+  
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    // SafeAreaView on Android devices
-    paddingTop: Constants.statusBarHeight,
-  },
+
   logo: {
     color: '#011D57',
     marginTop: 250,
@@ -93,11 +90,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   header:{
-    backgroundColor:"#007AFF",
-padding:10,
-paddingTop:40,
-flexDirection:'row',
-   justifyContent:'space-between'
+    backgroundColor: "#007AFF",
+    padding: 10,
+    paddingTop: 40,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   texticon:{
     color:'white',

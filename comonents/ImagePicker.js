@@ -1,44 +1,33 @@
 import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import {FontAwesome5,MaterialIcons,AntDesign,Entypo,SimpleLineIcons,Feather,Ionicons} from 'react-native-vector-icons';
-import { launchImageLibrary } from 'react-native-image-picker';
 import { useNavigation } from "@react-navigation/native";
 
 
 const ImagePicker = () => {
-  const [filePath, setFilePath] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
   const navigation = useNavigation();
-  const chooseFile = (type) => {
-    let options = {
-      mediaType: type,
-      maxWidth: 4500,
-      maxHeight: 3000,
-      quality: 1,
-    };
-    launchImageLibrary(options, (response) => {
-      console.log('Response = ', response);
+  const [previewURL, setPreviewURL] = useState(null);
 
-      if (response.didCancel) {
-        alert('User cancelled image picker');
-      } else if (response.errorCode == 'permission') {
-        alert('Permission not satisfied');
-      } else if (response.errorCode == 'others') {
-        alert(response.errorMessage);
-      } else {
-        console.log('uri -> ', response.uri);
-        setFilePath(response.uri);
-      }
-    });
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      console.log(
+        file.name, // file name
+        file.type, // mime type
+        file.size // file size
+      );
+
+      setSelectedFile(file);
+
+      // Create a URL for previewing the selected file
+      const fileURL = URL.createObjectURL(file);
+      setPreviewURL(fileURL);
+    }
   };
-
-  const viewImage = () => {
-    // Implement the functionality to view the image in a larger size here
-    // For example, you could navigate to a new screen that displays the image in a full-screen view
-    // You'll need to implement the navigation and screen for this purpose.
-  };
-
   return (
-    
+
      <View>
           <View>
         <View style={styles.header}>
@@ -52,21 +41,23 @@ const ImagePicker = () => {
     </View>  
     <View style={styles.container}>
         <Text style={styles.titleText}>Select Image</Text>
-        <TouchableOpacity
-          activeOpacity={0.5}
-          style={styles.buttonStyle}
-          onPress={() => chooseFile('photo')}>
-          <Text style={styles.textStyle}>Choose Image</Text>
-        </TouchableOpacity>
-        <View style={styles.imageContainer}>
-          {filePath && <Image source={{ uri: filePath }} style={styles.imageStyle} />}
-        </View>
-        {filePath && (
-          <TouchableOpacity style={styles.viewButton} onPress={viewImage}>
-            <Text style={styles.viewButtonText}>View Image</Text>
-          </TouchableOpacity>
-        )}
-        </View>
+        <div>
+      <input type="file" onChange={handleFileChange} />
+      {selectedFile && ( 
+        <div>
+          {/* <p>Selected File: {selectedFile.name}</p>
+          <p>Mime Type: {selectedFile.type}</p>
+          <p>File Size: {selectedFile.size} bytes</p> */}
+        </div>
+      )}
+      {previewURL && (
+        <div style={styles.imageContainer}>
+          <p>Preview:</p>
+          <img src={previewURL} alt="Selected File Preview" style={{ maxWidth: '900px', maxHeight: '550px' }} />
+        </div>
+      )}
+    </div>
+      </View>
       </View>
   );
 };
@@ -75,9 +66,7 @@ export default ImagePicker;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: 10,
-    backgroundColor: '#fff',
     alignItems: 'center',
   },
   header:{
@@ -92,14 +81,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     paddingVertical: 20,
-    backgroundColor: '#fff',
     color: '#007AFF',
-  },
-  textStyle: {
-    padding: 10,
-    color: 'white',
-    textAlign: 'center',
-    fontWeight: 'bold',
   },
   buttonStyle: {
     alignItems: 'center',
@@ -109,26 +91,11 @@ const styles = StyleSheet.create({
     width: 250,
   },
   imageContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    height: '50%',
+    width: '80%',
+    height: '40%',
     backgroundColor: '#f2f2f2',
-    marginBottom: 20,
+    alignContent: 'center',
+    alignItems: 'center',
   },
-  imageStyle: {
-    width: '100%',
-    height: '100%',
-  },
-  viewButton: {
-    backgroundColor: '#007AFF',
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 10,
-    position: 'absolute',
-  },
-  viewButtonText: {
-    color: 'black',
-    fontWeight: 'bold',
-  },
+  
 });
