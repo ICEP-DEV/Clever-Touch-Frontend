@@ -1,8 +1,13 @@
-import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, SafeAreaView, Button} from 'react-native';
-import {FontAwesome5,MaterialIcons,AntDesign,SimpleLineIcons,Feather,Ionicons} from 'react-native-vector-icons';
+import React, { useState, useRef } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+} from 'react-native';
+import { FontAwesome5, MaterialIcons, AntDesign, SimpleLineIcons, Feather, Ionicons } from 'react-native-vector-icons';
 import { useNavigation } from "@react-navigation/native";
-import { useState, useRef } from "react";
 
 const Recorder = () => {
   const navigation = useNavigation();
@@ -13,6 +18,7 @@ const Recorder = () => {
   const [recordingStatus, setRecordingStatus] = useState("inactive");
   const [audioChunks, setAudioChunks] = useState([]);
   const [audio, setAudio] = useState(null);
+  const [recordings, setRecordings] = useState([]); // Added state for recordings
 
   const getMicrophonePermission = async () => {
     if ("MediaRecorder" in window) {
@@ -30,6 +36,7 @@ const Recorder = () => {
       alert("The MediaRecorder API is not supported in your browser.");
     }
   };
+
   const startRecording = async () => {
     setRecordingStatus("recording");
     //create new Media recorder instance using the stream
@@ -46,6 +53,7 @@ const Recorder = () => {
     };
     setAudioChunks(localAudioChunks);
   };
+
   const stopRecording = () => {
     setRecordingStatus("inactive");
     //stops the recording instance
@@ -57,72 +65,119 @@ const Recorder = () => {
       const audioUrl = URL.createObjectURL(audioBlob);
       setAudio(audioUrl);
       setAudioChunks([]);
+      setRecordings([...recordings, audioUrl]); // Add the recording URL to the list
     };
   };
 
+  const downloadRecording = (url) => {
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "recording.mp3";
+    a.click();
+  };
+
   return (
-    <View> 
     <View>
+      <View>
         <View style={styles.header}>
-        <FontAwesome5 name="pen-nib" size={30} color="white" />
-        <MaterialIcons name="text-fields" size={30} color="white" onPress={() => navigation.navigate("TextField")} />
-        <AntDesign name="picture"  size={30} color="white" onPress={() => navigation.navigate("ImagePicker")}/>
-        <SimpleLineIcons name="microphone" size={30} color="white"/>
-        <Feather name="save" size={30} color="white" onPress={() => navigation.navigate("SaveScreen")}/>
-        <Ionicons name="home-outline" size={30} color="white" onPress={() => navigation.navigate("Home")} />
+          <FontAwesome5 name="pen-nib" size={30} color="white" onPress={() => navigation.navigate("Drawing")} />
+          <MaterialIcons name="text-fields" size={30} color="white" onPress={() => navigation.navigate("TextField")} />
+          <AntDesign name="picture" size={30} color="white" onPress={() => navigation.navigate("ImagePicker")} />
+          <SimpleLineIcons name="microphone" size={30} color="white" />
+          <Feather name="save" size={30} color="white" onPress={() => navigation.navigate("SaveScreen")} />
+          <Ionicons name="home-outline" size={30} color="white" onPress={() => navigation.navigate("Home")} />
         </View>
-  
-    </View>  
-     <View>
-      <h2 style={styles.title}>Voice Recorder</h2>
-          {!permission ? (
-            <button style={styles.perm} onClick={getMicrophonePermission} type="button">
-              Get Microphone
-            </button>
-          ) : null}
-    <View>
+      </View>
+      <View>
+        <Text style={styles.title}>Voice Recorder</Text>
+        {!permission ? (
+          <button style={styles.perm} onClick={getMicrophonePermission} type="button">
+            Get Microphone
+          </button>
+        ) : null}
+        <View>
           {permission && recordingStatus === "inactive" ? (
             <button style={styles.startRec} onClick={startRecording} type="button">
               Start Recording
             </button>
           ) : null}
-          </View>
-          <View>
+        </View>
+        <View>
           {recordingStatus === "recording" ? (
-            <button style={styles.stopRec}  onClick={stopRecording} type="button">
+            <button style={styles.stopRec} onClick={stopRecording} type="button">
               Stop Recording
             </button>
           ) : null}
+        </View>
+        <View>
+          {audio ? (
+            <button style={styles.saveRec} className="audio-player">
+              <audio src={audio} controls></audio>
+              <div>
+                <li>
+                  Play Record
+                </li>
+                {/* <button style={styles.download} onClick={() => downloadRecording(audio)}>
+                  Download
+                </button> */}
+              </div>
+            </button>
+          ) : null}
+        </View>
+        <View>
+          <h3 style={styles.recListHeader}>Recordings</h3>
+          <ul>
+            {recordings.map((recording, index) => (
+              <Text key={index}>
+                <button style={styles.downRec} onClick={() => downloadRecording(recording)}>Download Recording {index + 1}</button> <br>
+                </br> <br>
+                </br> <br>
+                </br> 
+              </Text>
+            ))}
+          </ul>
+        </View>
       </View>
-      <View>
-        {audio ? (
-           <button  style={styles.saveRec}  className="audio-player">
-            <audio src={audio} controls></audio>
-            <div>
-            <a download href={audio}>
-                <button  style={styles.download}>Download</button>
-            </a>
-        </div>
-          </button>
-        ) : null}
-        
-      </View>
-    </View>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
-  header:{
-  backgroundColor:"#007AFF",
-  padding:10,
-  paddingTop:40,
-  flexDirection:'row',
-  justifyContent:'space-between'
+  header: {
+    backgroundColor: "#007AFF",
+    padding: 10,
+    paddingTop: 40,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   title: {
     padding: 5,
+    marginBottom: 20,
     textAlign: 'center',
     alignContent: 'center',
+    color: '#007AFF',
+    fontWeight: 'bold',
+    fontSize: 30,
+  },
+  recListHeader: {
+    padding: 5,
+    textAlign: 'center',
+    alignContent: 'center',
+    color: '#007AFF',
+    fontWeight: 'bold',
+    fontSize: 25,
+  },
+  downRec: {
+    
+    right: 100,
+    backgroundColor: '#007AFF',
+    padding: 10,
+    borderRadius: 4,
+    color: 'white',
+    marginVertical: 10,
+    width: 200,
+    left: 200,
+    border: 'none',
   },
   perm: {
     border: 'none',
@@ -132,15 +187,15 @@ const styles = StyleSheet.create({
     padding: 10,
     textAlign: 'center',
     backgroundColor: '#DDDDDD',
-    marginLeft:'auto',
-    marginRight:'auto',
+    marginLeft: 'auto',
+    marginRight: 'auto',
     border: 'none',
     color: 'green',
     width: 300,
   },
-    stopRec: {
-    marginLeft:'auto',
-    marginRight:'auto',
+  stopRec: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
     backgroundColor: '#DDDDDD',
     padding: 10,
     border: 'none',
@@ -149,8 +204,8 @@ const styles = StyleSheet.create({
   },
   saveRec: {
     alignItems: 'center',
-    marginLeft:'auto',
-    marginRight:'auto',
+    marginLeft: 'auto',
+    marginRight: 'auto',
     backgroundColor: '#fff',
     padding: 10,
     border: 'none',
@@ -159,10 +214,10 @@ const styles = StyleSheet.create({
   download: {
     marginTop: 30,
     padding: 5,
-    marginLeft:'auto',
-    marginRight:'auto',
+    marginLeft: 'auto',
+    marginRight: 'auto',
     textAlign: 'center',
   },
-  },
-);
+});
+
 export default Recorder;

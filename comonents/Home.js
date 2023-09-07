@@ -37,7 +37,7 @@ function Home() {
           </View>
          <View>
 
-         <AntDesign name="file1" size= {30} color="white"/>
+         <AntDesign name="file1" size= {30} color="white" />
         <Text style={styles.texticon}>File</Text>
          </View>
          
@@ -48,7 +48,7 @@ function Home() {
         </Text>
 
         <View>
-          {/* <Text style={styles.clock}>{currentTime} </Text> */}
+          <Text style={styles.clock}>{currentTime} </Text>
         </View>
         <View>
           <Text style={styles.date}> {currentDate} </Text>
@@ -62,7 +62,6 @@ const styles = StyleSheet.create({
   container: {
     // SafeAreaView on Android devices
     paddingTop: Constants.statusBarHeight,
-    height: '100%',
   },
   logo: {
     color: '#011D57',
@@ -87,7 +86,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textTransform: 'uppercase',
      textAlign: "right" ,
-     marginTop: 350,
   },
 
   home: {

@@ -1,6 +1,6 @@
   .wrapper-class {
     padding: 1rem;
-    border: 1px solid #ccc;
+    border: 'none';
   }
   .editor-class {
     background-color: lightgray;
@@ -8,6 +8,7 @@
     border: 1px solid #ccc;
   }
   .toolbar-class {
-    border: 1px solid #ccc;
+    border: 1px solid #007AFF;
+    background-color: #007AFF ;
   }
   

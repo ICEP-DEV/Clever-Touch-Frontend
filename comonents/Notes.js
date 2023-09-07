@@ -8,7 +8,7 @@ function Notes(){
   return(
     <View>
         <View style={styles.header}>
-        <FontAwesome5 name="pen-nib" size={30} color="white" />
+        <FontAwesome5 name="pen-nib" size={30} color="white" onPress={() => navigation.navigate("Drawing")}/>
         <MaterialIcons name="text-fields" size={30} color="white" onPress={() => navigation.navigate("TextField")} />
         <AntDesign name="picture"  size={30} color="white" onPress={() => navigation.navigate("ImagePicker")}/>
         {/* <Entypo name="link" size={30} color="white" onPress={() => navigation.navigate("hypeLink")} /> */}
@@ -16,7 +16,6 @@ function Notes(){
         <Feather name="save" size={30} color="white" onPress={() => navigation.navigate("SaveScreen")}/>
         <Ionicons name="home-outline" size={30} color="white" onPress={() => navigation.navigate("Home")} />
         </View>
-  
     </View>  
   );
 
