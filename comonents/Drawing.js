@@ -4,6 +4,7 @@ import { Button, Dialog } from 'react-native-paper';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesome5, MaterialIcons, AntDesign, SimpleLineIcons, Feather, Ionicons } from 'react-native-vector-icons';
 import { useNavigation } from "@react-navigation/native";
+
 const Drawing = () => {
   const navigation = useNavigation();
   const canvasRef = useRef(null);
@@ -25,8 +26,6 @@ const Drawing = () => {
     context.strokeStyle = selectedColor;
     context.lineWidth = brushSize; // Use the selected brush size
     contextRef.current = context;
-    context.fillStyle = 'white';
-    context.fillRect(0, 0, canvas.width, canvas.height);
   }, [selectedColor, brushSize]);
 
   const startDrawing = ({ nativeEvent }) => {
@@ -69,7 +68,7 @@ const Drawing = () => {
   const saveImageToLocal = (event) => {
     let link = event.currentTarget;
     link.setAttribute('download', 'canvas.png');
-    let image = canvasRef.current.toDataURL('image/jpeg');
+    let image = canvasRef.current.toDataURL('image/png');
     link.setAttribute('href', image);
   };
 
@@ -106,7 +105,7 @@ const Drawing = () => {
       setRedoHistory((prevRedoHistory) => prevRedoHistory.slice(0, prevRedoHistory.length - 1));
     }
   };
-
+  
   return (
     <div>
       <View style={styles.header}>
@@ -128,24 +127,32 @@ const Drawing = () => {
         ></canvas>
         <div>
           <FontAwesome5 name="paint-brush" size={50} color="#007AFF" style={styles.butDraw} onClick={setToDraw}></FontAwesome5>
+          <Text style={styles.textDraw}>DRAW</Text>
           <FontAwesome5 name="eraser" size={50} color="#007AFF" style={styles.butErase} onClick={setToErase}></FontAwesome5>
+          <Text style={styles.textErase}>ERASE</Text>
           <MaterialIcons name="delete-sweep" size={50} color="#007AFF" style={styles.butClear} onClick={clearCanvas}></MaterialIcons>
+          <Text style={styles.textClear}>CLEAR</Text>
           <FontAwesome5 name="undo" size={45} color="#007AFF" style={styles.butUndo} onClick={undo}></FontAwesome5>
+          <Text style={styles.textUndo}>UNDO</Text>
           <FontAwesome5 name="redo" size={45} color="#007AFF" style={styles.butRedo} onClick={redo}></FontAwesome5>
+          <Text style={styles.textRedo}>REDO</Text>
+
+          <Text style={styles.bruSize}>BRUSH <br></br> SIZE</Text>
           <input
             style={styles.brSize}
             type="number"
             min="1"
-            placeholder="Size"
             value={brushSize}
             onChange={(e) => handleBrushSizeChange(parseInt(e.target.value))}
           />
+          <Text style={styles.textColor}>COLOR</Text>
           <input
             style={styles.clrChange}
             type="color"
             value={selectedColor}
             onChange={(e) => handleColorChange(e.target.value)}
           />
+          <Text style={styles.textSave}>SAVE</Text>
           <FontAwesome5 name="save" size={50} color="#007AFF" style={styles.butSave} id="download_image_link" href="download_link" onClick={saveImageToLocal}>
           </FontAwesome5>
           <Dialog visible={false}>
@@ -181,6 +188,17 @@ const styles = StyleSheet.create({
         top: 0,
         right:0,
     },
+    textSave:{
+      color:'#007AFF',
+      fontWeight: 'bold',
+      paddingBottom: 10,
+      paddingTop: 10,
+      position: 'absolute',
+      marginTop: 520,
+      marginRight: 15,
+      top: 0,
+      right:0,
+  },
     butErase:{
         paddingBottom: 10,
         paddingTop: 10,
@@ -189,6 +207,17 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         top:0,
         left:0,
+    },
+    textErase:{
+      color:'#007AFF',
+      paddingBottom: 10,
+      fontWeight: 'bold',
+      paddingTop: 10,
+      position: 'absolute',
+      marginTop: 220,
+      marginLeft: 15,
+      top:0,
+      left:0,
     },
     butClear:{
         paddingBottom: 10,
@@ -199,6 +228,18 @@ const styles = StyleSheet.create({
         top:0,
         right:0,
     },
+    textClear: {
+      color:'#007AFF',
+      fontWeight: 'bold',
+      paddingBottom: 10,
+      paddingTop: 10,
+      position: 'absolute',
+      marginTop: 70,
+      marginRight: 15,
+      top: 0,
+      right:0,
+
+    },
     butDraw:{
         paddingBottom: 10,
         paddingTop: 10,
@@ -207,6 +248,17 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         top:0,
         left:0,
+    },
+    textDraw:{
+      color:'#007AFF',
+      paddingBottom: 10,
+      fontWeight: 'bold',
+      paddingTop: 10,
+      position: 'absolute',
+      marginTop: 70,
+      marginLeft: 15,
+      top:0,
+      left:0,
     },
     butUndo:{
         paddingBottom: 10,
@@ -217,6 +269,17 @@ const styles = StyleSheet.create({
         top:0,
         right:0,
     },
+    textUndo:{
+      color:'#007AFF',
+      fontWeight: 'bold',
+      paddingBottom: 10,
+      paddingTop: 10,
+      position: 'absolute',
+      marginTop: 220,
+      marginRight: 15,
+      top: 0,
+      right:0,
+    },
     butRedo:{
         paddingBottom: 10,
         paddingTop: 10,
@@ -225,6 +288,17 @@ const styles = StyleSheet.create({
         marginRight: 10,
         top: 0,
         right:0,
+    },
+    textRedo: {
+      color:'#007AFF',
+      fontWeight: 'bold',
+      paddingBottom: 10,
+      paddingTop: 10,
+      position: 'absolute',
+      marginTop: 370,
+      marginRight: 15,
+      top: 0,
+      right:0,
     },
     brSize:{
         paddingTop: 10,
@@ -241,6 +315,17 @@ const styles = StyleSheet.create({
         left:0,
         textAlign:'center',
     },
+    bruSize:{
+      color:'#007AFF',
+      paddingBottom: 10,
+      fontWeight: 'bold',
+      paddingTop: 10,
+      position: 'absolute',
+      marginTop: 350,
+      marginLeft: 15,
+      top:0,
+      left:0,
+    },
     clrChange:{
         height: 40,
         position: 'absolute',
@@ -250,7 +335,18 @@ const styles = StyleSheet.create({
         top:0,
         left:0,
         borderColor: '#007AFF',
-    }
+    },
+    textColor:{
+      color:'#007AFF',
+      paddingBottom: 10,
+      fontWeight: 'bold',
+      paddingTop: 10,
+      position: 'absolute',
+      marginTop: 510,
+      marginLeft: 15,
+      top:0,
+      left:0,
+    },
     
 
 });
